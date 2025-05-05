@@ -31,7 +31,11 @@ app.use(express.json())
 app.use('/api/uploads',express.static('uploads/'))
 
 
-
+app.get('/', (req:Request,res:Response) =>{
+    res.status(200).json({
+        message:'Server is up & running'
+    })
+})
 
 // using routes
 app.use('/api/user',userRoutes)

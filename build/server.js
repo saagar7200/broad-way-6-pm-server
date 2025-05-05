@@ -60,6 +60,11 @@ app.use((0, cors_1.default)({
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use('/api/uploads', express_1.default.static('uploads/'));
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: 'Server is up & running'
+    });
+});
 // using routes
 app.use('/api/user', user_routes_1.default);
 app.use('/api/category', category_routes_1.default);
