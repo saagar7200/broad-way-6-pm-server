@@ -15,5 +15,5 @@ router.put('/:id', (0, authentication_middleware_1.Authenticate)([enums_1.Role.U
 router.get('/user/', (0, authentication_middleware_1.Authenticate)([enums_1.Role.User]), expense_controller_1.getByUserId);
 router.get('/:id', (0, authentication_middleware_1.Authenticate)([enums_1.Role.User, enums_1.Role.Admin]), expense_controller_1.getById);
 router.get('/', (0, authentication_middleware_1.Authenticate)([enums_1.Role.Admin]), expense_controller_1.getAll);
-// router.delete('/:id',Authenticate([Role.Admin]),remove)
+// router.delete('/:id',Authenticate([Role.User]),remove)
 exports.default = router;

@@ -102,7 +102,7 @@ exports.remove = (0, async_handler_util_1.default)((req, res) => __awaiter(void 
     if (!category) {
         throw new error_handler_middleware_1.default('Category not found', 404);
     }
-    if (category.user !== user) {
+    if (category.user.toString() !== user.toString()) {
         throw new error_handler_middleware_1.default('You can not perform this action', 403);
     }
     yield category.deleteOne();

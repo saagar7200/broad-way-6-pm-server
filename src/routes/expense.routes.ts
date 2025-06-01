@@ -15,7 +15,7 @@ router.put('/:id',Authenticate([Role.User]),upload.array('receipts',3),update)
 router.get('/user/',Authenticate([Role.User]),getByUserId)
 router.get('/:id',Authenticate([Role.User,Role.Admin]),getById)
 router.get('/',Authenticate([Role.Admin]),getAll)
-// router.delete('/:id',Authenticate([Role.Admin]),remove)
+// router.delete('/:id',Authenticate([Role.User]),remove)
 
 
 export default router

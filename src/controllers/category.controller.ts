@@ -138,7 +138,7 @@ export const remove = asyncHandler(async(req:Request,res:Response)=>{
         throw new CustomError('Category not found',404)
     }
 
-    if(category.user !== user){
+    if(category.user.toString() !== user.toString()){
         throw new CustomError('You can not perform this action',403)
     }
 
