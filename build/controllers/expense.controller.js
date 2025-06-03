@@ -185,7 +185,7 @@ exports.remove = (0, async_handler_util_1.default)((req, res) => __awaiter(void 
 }));
 exports.getByUserId = (0, async_handler_util_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.user._id;
-    const expenses = yield expense_model_1.default.find({ createdBy: userId });
+    const expenses = yield expense_model_1.default.find({ createdBy: userId }).populate('category');
     res.status(201).json({
         message: 'expense by user Id',
         data: expenses,

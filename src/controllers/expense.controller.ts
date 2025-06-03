@@ -212,7 +212,7 @@ export const getByUserId = asyncHandler(async(req:Request,res:Response)=>{
 
     const userId = req.user._id
 
-    const expenses = await Expense.find({createdBy:userId})
+    const expenses = await Expense.find({createdBy:userId}).populate('category')
 
     res.status(201).json({
         message:'expense by user Id',
