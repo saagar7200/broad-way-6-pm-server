@@ -228,7 +228,7 @@ export const getById = asyncHandler(async(req:Request,res:Response)=>{
     const userId = req.user._id
     const {id} = req.params
 
-    const expense = await Expense.findOne({_id:id ,createdBy:userId}).populate('createdBy')
+    const expense = await Expense.findOne({_id:id ,createdBy:userId}).populate('createdBy').populate('category')
     if(!expense){
         throw new CustomError('expense not found',404)
     }

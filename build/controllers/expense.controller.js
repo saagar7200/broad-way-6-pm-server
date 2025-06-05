@@ -196,7 +196,7 @@ exports.getByUserId = (0, async_handler_util_1.default)((req, res) => __awaiter(
 exports.getById = (0, async_handler_util_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.user._id;
     const { id } = req.params;
-    const expense = yield expense_model_1.default.findOne({ _id: id, createdBy: userId }).populate('createdBy');
+    const expense = yield expense_model_1.default.findOne({ _id: id, createdBy: userId }).populate('createdBy').populate('category');
     if (!expense) {
         throw new error_handler_middleware_1.default('expense not found', 404);
     }
