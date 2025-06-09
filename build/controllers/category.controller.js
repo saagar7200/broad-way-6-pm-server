@@ -18,13 +18,13 @@ const error_handler_middleware_1 = __importDefault(require("../middlewares/error
 const user_model_1 = __importDefault(require("../models/user.model"));
 const category_model_1 = __importDefault(require("../models/category.model"));
 exports.create = (0, async_handler_util_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name } = req.body;
+    const { name, description } = req.body;
     const userId = req.user._id;
     const user = yield user_model_1.default.findById(userId);
     if (!user) {
         throw new error_handler_middleware_1.default('User not found', 404);
     }
-    const category = yield category_model_1.default.create({ name, user: user._id });
+    const category = yield category_model_1.default.create({ name, description, user: user._id });
     if (!category) {
         throw new error_handler_middleware_1.default('Category not created.', 401);
     }
@@ -36,7 +36,7 @@ exports.create = (0, async_handler_util_1.default)((req, res) => __awaiter(void 
     });
 }));
 exports.update = (0, async_handler_util_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name } = req.body;
+    const { name, description } = req.body;
     const { id } = req.params;
     const userId = req.user._id;
     if (!name) {
@@ -50,10 +50,13 @@ exports.update = (0, async_handler_util_1.default)((req, res) => __awaiter(void 
     if (!category) {
         throw new error_handler_middleware_1.default('Category not found.', 404);
     }
-    if (category.user !== user._id) {
+    if (category.user.toString() !== user._id.toString()) {
         throw new error_handler_middleware_1.default('Only category owner can perform this operation.', 403);
     }
-    category.name = name;
+    if (name)
+        category.name = name;
+    if (description)
+        category.description = description;
     const updatedCategory = yield category.save();
     res.status(201).json({
         message: 'Category updated',
