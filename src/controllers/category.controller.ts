@@ -6,7 +6,7 @@ import Category from "../models/category.model";
 
 export const create = asyncHandler(async(req:Request,res:Response)=>{
 
-    const {name} = req.body
+    const {name,description} = req.body
     const userId = req.user._id
 
    
@@ -17,7 +17,7 @@ export const create = asyncHandler(async(req:Request,res:Response)=>{
         throw new CustomError('User not found',404)
     }
 
-    const category = await Category.create({name,user:user._id})
+    const category = await Category.create({name,description,user:user._id})
 
     if(!category){
         throw new CustomError('Category not created.',401)
@@ -36,7 +36,7 @@ export const create = asyncHandler(async(req:Request,res:Response)=>{
 
 export const update = asyncHandler(async(req:Request,res:Response)=>{
 
-    const {name} = req.body
+    const {name,description} = req.body
     const {id} = req.params
     const userId = req.user._id
 
@@ -59,11 +59,12 @@ export const update = asyncHandler(async(req:Request,res:Response)=>{
     }
     
 
-    if(category.user !== user._id){
+    if(category.user.toString() !== user._id.toString()){
         throw new CustomError('Only category owner can perform this operation.',403)
     }
 
-        category.name = name
+        if(name) category.name = name
+        if(description) category.description = description
         const updatedCategory =  await category.save()
 
 

@@ -5,6 +5,9 @@ const categorySchema = new Schema({
         type:String,
         required:[true,'name is required'],
     },
+    description:{
+      type:String,
+  },
     user:{
       type: Schema.Types.ObjectId,
       ref:'user',
